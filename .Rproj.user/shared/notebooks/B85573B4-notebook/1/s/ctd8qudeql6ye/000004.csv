@@ -1,0 +1,4 @@
+"0","wordbank <- str_split(wordbank[1], pattern = """")"
+"0","table <- as.data.frame(table(wordbank))"
+"0","table <- table[4:30, ] #remove the non-letters that were somehow left in"
+"0","table"

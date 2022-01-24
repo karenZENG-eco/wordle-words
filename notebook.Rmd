@@ -1,0 +1,40 @@
+---
+title: "hardcorexgamerxsephirophxd"
+output: html_notebook
+---
+
+
+Finding the objectively best word for wordle because video games:
+https://www.powerlanguage.co.uk/wordle/
+
+word list obtained using:
+https://www.pcmag.com/how-to/want-to-up-your-wordle-game-the-winning-word-is-right-on-the-
+
+general info on the most common letters:
+https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
+
+Let's load in the wordbank from the game. I've pre-removed all the non-letter things in 
+
+```{r}
+library(tidyverse)
+
+wordbank <- read.delim("./data/wordle_list.txt", header = F)
+wordbank <- tolower(wordbank)
+```
+
+And separate into characters to count the most common letters
+
+```{r}
+wordbank <- str_split(wordbank[1], pattern = "")
+table <- as.data.frame(table(wordbank))
+table <- table[4:30, ] #remove the non-letters that were somehow left in
+table
+```
+
+Initial Conclusions:
+
+Top letters differ a little from the most common letters in the dictionary, likely because wordle only uses 5 letter words.
+
+Funnily enough, "AROSE" is a better word than "ARISE" in the wordle meta.
+
+Next Steps: consider that words can have reocurring letters. So for example parry would only count as one use of R instead of two.
