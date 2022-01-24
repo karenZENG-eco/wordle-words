@@ -13,9 +13,13 @@ https://www.pcmag.com/how-to/want-to-up-your-wordle-game-the-winning-word-is-rig
 general info on the most common letters:
 https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html
 
-Let's load in the wordbank from the game. I've pre-removed all the non-letter things in 
+Let's load in the wordbank from the game. I've pre-removed all the non-letter things in the file but if you want the raw file is there too :)
+
+remove hash symbol if you have not installed tidyverse before.
 
 ```{r}
+#install.packages("tidyverse")
+
 library(tidyverse)
 
 wordbank <- read.delim("./data/wordle_list.txt", header = F)

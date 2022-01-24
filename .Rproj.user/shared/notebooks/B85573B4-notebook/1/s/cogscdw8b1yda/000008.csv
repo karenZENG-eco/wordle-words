@@ -1,6 +1,0 @@
-"0","library(tidyverse)"
-"0",""
-"0","wordbank <- read.delim(""./data/wordle_list.txt"", header = F)"
-"0","wordbank <- as.lower(wordbank)"
-"2","Error in as.lower(wordbank) : could not find function ""as.lower""
-"

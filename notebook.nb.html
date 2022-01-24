@@ -218,18 +218,31 @@ pre code {
 <p>Finding the objectively best word for wordle because video games: <a href="https://www.powerlanguage.co.uk/wordle/" class="uri">https://www.powerlanguage.co.uk/wordle/</a></p>
 <p>word list obtained using: <a href="https://www.pcmag.com/how-to/want-to-up-your-wordle-game-the-winning-word-is-right-on-the-" class="uri">https://www.pcmag.com/how-to/want-to-up-your-wordle-game-the-winning-word-is-right-on-the-</a></p>
 <p>general info on the most common letters: <a href="https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html" class="uri">https://www3.nd.edu/~busiforc/handouts/cryptography/letterfrequencies.html</a></p>
-<p>Let’s load in the wordbank from the game. I’ve pre-removed all the non-letter things in</p>
+<p>Let’s load in the wordbank from the game. I’ve pre-removed all the non-letter things in the file but if you want the raw file is there too :)</p>
+<p>remove hash symbol if you have not installed tidyverse before.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5cbndvcmRiYW5rIDwtIHJlYWQuZGVsaW0oXCIuL2RhdGEvd29yZGxlX2xpc3QudHh0XCIsIGhlYWRlciA9IEYpXG53b3JkYmFuayA8LSBhcy5sb3dlcih3b3JkYmFuaylcbmBgYCJ9 -->
-<pre class="r"><code>library(tidyverse)
-
-wordbank &lt;- read.delim(&quot;./data/wordle_list.txt&quot;, header = F)
-wordbank &lt;- as.lower(wordbank)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYXMubG93ZXIod29yZGJhbmspIDogY291bGQgbm90IGZpbmQgZnVuY3Rpb24gXCJhcy5sb3dlclwiXG4ifQ== -->
-<pre><code>Error in as.lower(wordbank) : could not find function &quot;as.lower&quot;</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxuLS0gQXR0YWNoaW5nIHBhY2thZ2VzIC0tLS0tLS0tLS0tIHRpZHl2ZXJzZSAxLjMuMSAtLVxudiBnZ3Bsb3QyIDMuMy41ICAgICB2IHB1cnJyICAgMC4zLjRcbnYgdGliYmxlICAzLjEuNSAgICAgdiBkcGx5ciAgIDEuMC43XG52IHRpZHlyICAgMS4xLjQgICAgIHYgc3RyaW5nciAxLjQuMFxudiByZWFkciAgIDIuMC4yICAgICB2IGZvcmNhdHMgMC41LjFcbi0tIENvbmZsaWN0cyAtLS0tLS0tLS0tLS0tLSB0aWR5dmVyc2VfY29uZmxpY3RzKCkgLS1cbnggZHBseXI6OmZpbHRlcigpIG1hc2tzIHN0YXRzOjpmaWx0ZXIoKVxueCBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG4ifQ== -->
+<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
+  method         from
+  print.tbl_lazy     
+  print.tbl_sql      
+-- Attaching packages ----------- tidyverse 1.3.1 --
+v ggplot2 3.3.5     v purrr   0.3.4
+v tibble  3.1.5     v dplyr   1.0.7
+v tidyr   1.1.4     v stringr 1.4.0
+v readr   2.0.2     v forcats 0.5.1
+-- Conflicts -------------- tidyverse_conflicts() --
+x dplyr::filter() masks stats::filter()
+x dplyr::lag()    masks stats::lag()</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud29yZGJhbmsgPC0gcmVhZC5kZWxpbShcIi4vZGF0YS93b3JkbGVfbGlzdC50eHRcIiwgaGVhZGVyID0gRilcbndvcmRiYW5rIDwtIHRvbG93ZXIod29yZGJhbmspXG5gYGAifQ== -->
+<pre class="r"><code>wordbank &lt;- read.delim(&quot;./data/wordle_list.txt&quot;, header = F)
+wordbank &lt;- tolower(wordbank)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>And separate into characters to count the most common letters</p>
@@ -256,7 +269,7 @@ table</code></pre>
 <p>Next Steps: consider that words can have reocurring letters. So for example parry would only count as one use of R instead of two.</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogImhhcmRjb3JleGdhbWVyeHNlcGhpcm9waHhkIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KDQpGaW5kaW5nIHRoZSBvYmplY3RpdmVseSBiZXN0IHdvcmQgZm9yIHdvcmRsZSBiZWNhdXNlIHZpZGVvIGdhbWVzOg0KaHR0cHM6Ly93d3cucG93ZXJsYW5ndWFnZS5jby51ay93b3JkbGUvDQoNCndvcmQgbGlzdCBvYnRhaW5lZCB1c2luZzoNCmh0dHBzOi8vd3d3LnBjbWFnLmNvbS9ob3ctdG8vd2FudC10by11cC15b3VyLXdvcmRsZS1nYW1lLXRoZS13aW5uaW5nLXdvcmQtaXMtcmlnaHQtb24tdGhlLQ0KDQpnZW5lcmFsIGluZm8gb24gdGhlIG1vc3QgY29tbW9uIGxldHRlcnM6DQpodHRwczovL3d3dzMubmQuZWR1L35idXNpZm9yYy9oYW5kb3V0cy9jcnlwdG9ncmFwaHkvbGV0dGVyZnJlcXVlbmNpZXMuaHRtbA0KDQpMZXQncyBsb2FkIGluIHRoZSB3b3JkYmFuayBmcm9tIHRoZSBnYW1lLiBJJ3ZlIHByZS1yZW1vdmVkIGFsbCB0aGUgbm9uLWxldHRlciB0aGluZ3MgaW4gDQoNCmBgYHtyfQ0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCndvcmRiYW5rIDwtIHJlYWQuZGVsaW0oIi4vZGF0YS93b3JkbGVfbGlzdC50eHQiLCBoZWFkZXIgPSBGKQ0Kd29yZGJhbmsgPC0gdG9sb3dlcih3b3JkYmFuaykNCmBgYA0KDQpBbmQgc2VwYXJhdGUgaW50byBjaGFyYWN0ZXJzIHRvIGNvdW50IHRoZSBtb3N0IGNvbW1vbiBsZXR0ZXJzDQoNCmBgYHtyfQ0Kd29yZGJhbmsgPC0gc3RyX3NwbGl0KHdvcmRiYW5rWzFdLCBwYXR0ZXJuID0gIiIpDQp0YWJsZSA8LSBhcy5kYXRhLmZyYW1lKHRhYmxlKHdvcmRiYW5rKSkNCnRhYmxlIDwtIHRhYmxlWzQ6MzAsIF0gI3JlbW92ZSB0aGUgbm9uLWxldHRlcnMgdGhhdCB3ZXJlIHNvbWVob3cgbGVmdCBpbg0KdGFibGUNCmBgYA0KDQpJbml0aWFsIENvbmNsdXNpb25zOg0KDQpUb3AgbGV0dGVycyBkaWZmZXIgYSBsaXR0bGUgZnJvbSB0aGUgbW9zdCBjb21tb24gbGV0dGVycyBpbiB0aGUgZGljdGlvbmFyeSwgbGlrZWx5IGJlY2F1c2Ugd29yZGxlIG9ubHkgdXNlcyA1IGxldHRlciB3b3Jkcy4NCg0KRnVubmlseSBlbm91Z2gsICJBUk9TRSIgaXMgYSBiZXR0ZXIgd29yZCB0aGFuICJBUklTRSIgaW4gdGhlIHdvcmRsZSBtZXRhLg0KDQpOZXh0IFN0ZXBzOiBjb25zaWRlciB0aGF0IHdvcmRzIGNhbiBoYXZlIHJlb2N1cnJpbmcgbGV0dGVycy4gU28gZm9yIGV4YW1wbGUgcGFycnkgd291bGQgb25seSBjb3VudCBhcyBvbmUgdXNlIG9mIFIgaW5zdGVhZCBvZiB0d28u</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogImhhcmRjb3JleGdhbWVyeHNlcGhpcm9waHhkIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQotLS0NCg0KDQpGaW5kaW5nIHRoZSBvYmplY3RpdmVseSBiZXN0IHdvcmQgZm9yIHdvcmRsZSBiZWNhdXNlIHZpZGVvIGdhbWVzOg0KaHR0cHM6Ly93d3cucG93ZXJsYW5ndWFnZS5jby51ay93b3JkbGUvDQoNCndvcmQgbGlzdCBvYnRhaW5lZCB1c2luZzoNCmh0dHBzOi8vd3d3LnBjbWFnLmNvbS9ob3ctdG8vd2FudC10by11cC15b3VyLXdvcmRsZS1nYW1lLXRoZS13aW5uaW5nLXdvcmQtaXMtcmlnaHQtb24tdGhlLQ0KDQpnZW5lcmFsIGluZm8gb24gdGhlIG1vc3QgY29tbW9uIGxldHRlcnM6DQpodHRwczovL3d3dzMubmQuZWR1L35idXNpZm9yYy9oYW5kb3V0cy9jcnlwdG9ncmFwaHkvbGV0dGVyZnJlcXVlbmNpZXMuaHRtbA0KDQpMZXQncyBsb2FkIGluIHRoZSB3b3JkYmFuayBmcm9tIHRoZSBnYW1lLiBJJ3ZlIHByZS1yZW1vdmVkIGFsbCB0aGUgbm9uLWxldHRlciB0aGluZ3MgaW4gdGhlIGZpbGUgYnV0IGlmIHlvdSB3YW50IHRoZSByYXcgZmlsZSBpcyB0aGVyZSB0b28gOikNCg0KcmVtb3ZlIGhhc2ggc3ltYm9sIGlmIHlvdSBoYXZlIG5vdCBpbnN0YWxsZWQgdGlkeXZlcnNlIGJlZm9yZS4NCg0KYGBge3J9DQojaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCg0KbGlicmFyeSh0aWR5dmVyc2UpDQoNCndvcmRiYW5rIDwtIHJlYWQuZGVsaW0oIi4vZGF0YS93b3JkbGVfbGlzdC50eHQiLCBoZWFkZXIgPSBGKQ0Kd29yZGJhbmsgPC0gdG9sb3dlcih3b3JkYmFuaykNCmBgYA0KDQpBbmQgc2VwYXJhdGUgaW50byBjaGFyYWN0ZXJzIHRvIGNvdW50IHRoZSBtb3N0IGNvbW1vbiBsZXR0ZXJzDQoNCmBgYHtyfQ0Kd29yZGJhbmsgPC0gc3RyX3NwbGl0KHdvcmRiYW5rWzFdLCBwYXR0ZXJuID0gIiIpDQp0YWJsZSA8LSBhcy5kYXRhLmZyYW1lKHRhYmxlKHdvcmRiYW5rKSkNCnRhYmxlIDwtIHRhYmxlWzQ6MzAsIF0gI3JlbW92ZSB0aGUgbm9uLWxldHRlcnMgdGhhdCB3ZXJlIHNvbWVob3cgbGVmdCBpbg0KdGFibGUNCmBgYA0KDQpJbml0aWFsIENvbmNsdXNpb25zOg0KDQpUb3AgbGV0dGVycyBkaWZmZXIgYSBsaXR0bGUgZnJvbSB0aGUgbW9zdCBjb21tb24gbGV0dGVycyBpbiB0aGUgZGljdGlvbmFyeSwgbGlrZWx5IGJlY2F1c2Ugd29yZGxlIG9ubHkgdXNlcyA1IGxldHRlciB3b3Jkcy4NCg0KRnVubmlseSBlbm91Z2gsICJBUk9TRSIgaXMgYSBiZXR0ZXIgd29yZCB0aGFuICJBUklTRSIgaW4gdGhlIHdvcmRsZSBtZXRhLg0KDQpOZXh0IFN0ZXBzOiBjb25zaWRlciB0aGF0IHdvcmRzIGNhbiBoYXZlIHJlb2N1cnJpbmcgbGV0dGVycy4gU28gZm9yIGV4YW1wbGUgcGFycnkgd291bGQgb25seSBjb3VudCBhcyBvbmUgdXNlIG9mIFIgaW5zdGVhZCBvZiB0d28u</div>
 
 
 
